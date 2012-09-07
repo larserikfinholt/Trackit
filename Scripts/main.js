@@ -14,10 +14,21 @@ var ViewModel = function (days, tasks, persons) {
     this.days = ko.observableArray(days);
     this.tasks = ko.observableArray(tasks);
     this.persons = ko.observableArray(persons);
+    this.showDialog = function (task, event) {
+        $('#myModal').modal('show');
+        $('.personbutton').data('task', task);
+        $('.personbutton').data('day', $(event.target).data('day'));
+    };
+    this.setDoneBy = function (person, event) {
+        alert(person + $(event.target).data('task').title + $(event.target).data('day'));
+        $(event.target).data('task').doneBy(person);
+    };
 
 };
 
 ko.applyBindings(new ViewModel( 
     ["Mon","Tue","Wed","Thu","Fri","Sat"], 
     [new Task("Morgentur"),new Task("Etterskoletur"), new Task("Ettermiddagstur"), new Task("Kveldstur")],
-    ["Lars Erik", "Camilla", "Markus", "Sigrid", "Ingvild"]));
+    ["Lars Erik", "Camilla", "Markus", "Sigrid", "Ingvild"]
+    )
+    );
